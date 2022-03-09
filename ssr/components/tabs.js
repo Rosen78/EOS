@@ -17,7 +17,7 @@ export default class Tabs extends React.Component {
            value={this.props.tabNumberActive}
          >
          {tabHeaders.map((tabHeader, ind) => <Tab key={ind} onClick={() => this.props.onTabClick(ind)} label={tabHeader} />)}
-
+         
          </TabsWrapper>
        </Paper>
 

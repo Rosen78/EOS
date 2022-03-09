@@ -17,16 +17,32 @@ const useStyles = makeStyles(theme => ({
 
 class SimpleModal extends React.Component {
 
+    constructor(props){
+        super(props)
+
+        this.handleRadioChangeNew = this.handleRadioChangeNew.bind(this)
+
+        this.state = {radioValue: undefined}
+    }
+
+    handleRadioChangeNew(radioValue){
+        if(this.state.radioValue !== radioValue){
+            this.setState({radioValue: radioValue})
+        }
+    };
+
     render(){
     return (
             <Modal
             open={this.props.isOpen}
-            onClose={() => this.props.onClose()}
+            onClose={() => this.props.onClose(this.state.radioValue)}
             >
                 <div className={this.props.classes.paper}>
-                  <RadioButtonsGroup radioValue={this.props.radioValue}
+                  <RadioButtonsGroup 
                   modalLabelsPart={this.props.modalLabelsPart}
-                  handleRadioChange={this.props.handleRadioChange}></RadioButtonsGroup>
+                  handleRadioChange={this.handleRadioChangeNew}
+                >
+                </RadioButtonsGroup>
                 </div>
             </Modal>
         )};

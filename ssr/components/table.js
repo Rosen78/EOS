@@ -34,7 +34,7 @@ class SimpleTable extends React.Component {
        const tableHeadHeaders = [this.props.tablesDataPart[0][0], this.props.tablesDataPart[0][1],
            this.props.tablesDataPart[0][2], 'Change data'];
     return (
-        <Paper className={this.props.hidden ? this.props.classes.hidden : this.props.classes.root}>
+        <Paper className={this.props.classes.root}>
             {this.props.tableName}
             <Table className={this.props.classes.table} aria-label="simple table">
                 <TableHead>
@@ -65,7 +65,7 @@ class SimpleTable extends React.Component {
             </Paper>
 
     )} else
-       {return null}
+       {return null} 
            } }
 
 const HOCExample = (Component) => {

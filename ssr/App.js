@@ -19,7 +19,7 @@ export default class App extends React.Component {
         this.handleRadioChange = this.handleRadioChange.bind(this)
         this.lazyLoad = this.lazyLoad.bind(this)
 
-        this.state = {isOpenModal: false, tablesData: [[], [], []], radioValue: undefined}
+        this.state = {tabNumber: undefined, isOpenModal: false, tableRow: undefined, tablesData: [[], [], []], radioValue: undefined}
     }
 
     lazyLoad(tabNumber){
@@ -35,7 +35,7 @@ export default class App extends React.Component {
                         return tabData
                     }
                 })
-                return {tabNumber: tabNumber, tablesData: tablesData}
+                return {tabNumber, tablesData: tablesData}
             })
         })
         .catch(function (error) {
@@ -50,7 +50,7 @@ export default class App extends React.Component {
             if(this.state.tablesData[tabNumber].length === 0){
                 this.lazyLoad(tabNumber);
             } else {
-                this.setState({tabNumber: tabNumber})
+                this.setState({tabNumber})
             }
         }
     }
@@ -61,12 +61,12 @@ export default class App extends React.Component {
         }
     };
 
-     handleClose(){
+    handleClose(radioValue){
         if(this.state.isOpenModal){
-            if(this.state.radioValue !== undefined){
+            if(radioValue !== undefined){
                 this.setState(state => {
                     const newTabRow = Object.assign({}, state.tablesData[state.tabNumber][state.tableRow],
-                        {[state.tablesData[state.tabNumber][0][0]]: state.radioValue})
+                        {[state.tablesData[state.tabNumber][0][0]]: radioValue})
                     const tablesData = state.tablesData.map((tabData, ind1) =>
                         tabData.map((rowData, ind2) => {
                         if (ind1 === state.tabNumber && ind2 === state.tableRow){
@@ -118,16 +118,14 @@ export default class App extends React.Component {
           <Tabs onTabClick={this.onTabClick} tabNumberActive={this.state.tabNumber}></Tabs>
 
       { tabsDesignData.map((data, ind) => (
-            <SimpleTableFunc
+            (this.state.tabNumber === ind) && <SimpleTableFunc
                 key={data.tableName}
-                tabNumber={ind}
-                hidden={this.state.tabNumber === ind ? false : true}
                 tableName={data.tableName}
                 tabNumberActive={this.state.tabNumber}
-                tableRowActive={this.state.tableRow}
                 rowState={this.state.rowState}
                 tablesDataPart={this.state.tablesData[ind]}
-                onClickButtonRow={data.onClickButtonRow}>
+                onClickButtonRow={data.onClickButtonRow}
+                >
             </SimpleTableFunc>
           ))}
 

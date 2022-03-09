@@ -6,13 +6,16 @@ import FormControl from '@material-ui/core/FormControl';
 import FormLabel from '@material-ui/core/FormLabel';
 
 export default class RadioButtonsGroup extends React.Component {
+
     render() {
     return (
         <div>
             <FormControl component="fieldset">
                 <FormLabel component="legend">Gender</FormLabel>
-                <RadioGroup name="radioOptions" value={this.props.radioValue}
-                onChange={(event) => this.props.handleRadioChange(event.target.value)}>
+                <RadioGroup name="radioOptions" 
+                // value={this.props.radioValue}
+                onChange={(event) => this.props.handleRadioChange(event.target.value)}
+                >
                 {this.props.modalLabelsPart.map(data => (
                     <FormControlLabel
                     key={data}
